@@ -1,0 +1,23 @@
+html, body
+{
+  font-family: Arial, sans-serif;
+}
+
+#date-display
+{
+  color: #111;
+  margin: 4em 0 0 0;
+  text-align: center;
+}
+
+#day-count
+{
+  font-size: 20em;
+  font-weight: bold;
+  line-height: 0.9em;
+}
+
+#day-count-explanation
+{
+  font-size: 2.5em;
+}
