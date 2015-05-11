@@ -8,22 +8,30 @@
   if(segments[1] === 'until')
   {
     var targetDate = new Date(segments[2]);
-    var diffDate = targetDate - Date.now();
-    var daysUntil = Math.round(diffDate/(1000*60*60*24));
-
-    document.getElementById('day-count').innerHTML = daysUntil;
-    document.getElementById('day-count-explanation').innerHTML = 'days until ' + targetDate.toDateString();
+    var daysUntil = calcDayDiff(targetDate, Date.now());
+    displayDayDiff(daysUntil, 'days until ' + targetDate.toDateString());
   }
 
   // URL Format: #/since/{date}
   if(segments[1] === 'since')
   {
     var targetDate = new Date(segments[2]);
-    var diffDate = Date.now() - targetDate;
-    var daysUntil = Math.round(diffDate/(1000*60*60*24));
+    var daysSince = calcDayDiff(Date.now(), targetDate);
+    displayDayDiff(daysSince, 'days since ' + targetDate.toDateString());
+  }
 
-    document.getElementById('day-count').innerHTML = daysUntil;
-    document.getElementById('day-count-explanation').innerHTML = 'days since ' + targetDate.toDateString();
+  function calcDayDiff(firstDate, secondDate) {
+
+    var diff = firstDate - secondDate;
+    return Math.round(diff/(1000*60*60*24))
+
+  }
+
+  function displayDayDiff(dayDiff, dayDiffExplanation) {
+
+    document.getElementById('day-count').innerHTML = dayDiff;
+    document.getElementById('day-count-explanation').innerHTML = dayDiffExplanation;
+
   }
 
 })();
