@@ -20,6 +20,15 @@
     displayDayDiff(daysSince, 'days since ' + targetDate.toDateString());
   }
 
+  // URL Format: #/between/{date1}/{date2}
+  if(segments[1] === 'between')
+  {
+    var firstDate = new Date(segments[2]);
+    var secondDate = new Date(segments[3]);
+    var daysBetween = calcDayDiff(secondDate, firstDate);
+    displayDayDiff(daysBetween, 'days between ' + firstDate.toDateString() + ' and ' + secondDate.toDateString());
+  }
+
   function calcDayDiff(firstDate, secondDate) {
 
     var diff = firstDate - secondDate;
