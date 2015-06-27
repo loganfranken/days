@@ -29,6 +29,16 @@
     displayDayDiff(daysBetween, 'days between ' + firstDate.toDateString() + ' and ' + secondDate.toDateString());
   }
 
+  // URL Format: #/{count}/after/{date1}
+  if(segments[2] === 'after')
+  {
+    var targetDate = new Date(segments[3]);
+    var daysAfter = +segments[1];
+    var dateAfter = new Date();
+    dateAfter.setDate(targetDate.getDate() + daysAfter);
+    console.log(dateAfter.toDateString());
+  }
+
   function calcDayDiff(firstDate, secondDate) {
 
     var diff = firstDate - secondDate;
