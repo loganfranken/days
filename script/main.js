@@ -39,6 +39,16 @@
     console.log(dateAfter.toDateString());
   }
 
+  // URL Format: #/{count}/before/{date1}
+  if(segments[2] === 'before')
+  {
+    var targetDate = new Date(segments[3]);
+    var daysBefore = +segments[1];
+    var dateBefore = new Date();
+    dateBefore.setDate(targetDate.getDate() - daysBefore);
+    console.log(dateBefore.toDateString());
+  }
+
   function calcDayDiff(firstDate, secondDate) {
 
     var diff = firstDate - secondDate;
