@@ -36,7 +36,7 @@
     var daysAfter = +segments[1];
     var dateAfter = new Date();
     dateAfter.setDate(targetDate.getDate() + daysAfter);
-    console.log(dateAfter.toDateString());
+    displayDayCalc(daysAfter + ' days after ' + targetDate.toDateString() + ' is', dateAfter.toDateString());
   }
 
   // URL Format: #/{count}/before/{date1}
@@ -46,7 +46,7 @@
     var daysBefore = +segments[1];
     var dateBefore = new Date();
     dateBefore.setDate(targetDate.getDate() - daysBefore);
-    console.log(dateBefore.toDateString());
+    displayDayCalc(daysBefore + ' days before ' + targetDate.toDateString() + ' is', dateBefore.toDateString());
   }
 
   function calcDayDiff(firstDate, secondDate) {
@@ -60,6 +60,13 @@
 
     document.getElementById('day-count').innerHTML = dayDiff;
     document.getElementById('day-count-explanation').innerHTML = dayDiffExplanation;
+
+  }
+
+  function displayDayCalc(dayCalcExplanation, dayCalcResult) {
+
+    document.getElementById('day-calc-result').innerHTML = dayCalcResult;
+    document.getElementById('day-calc-explanation').innerHTML = dayCalcExplanation;
 
   }
 
