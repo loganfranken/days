@@ -9,7 +9,13 @@
   {
     var targetDate = new Date(segments[2]);
     var daysUntil = calcDayDiff(targetDate, Date.now());
+
+    if(daysUntil < 0) {
+      daysUntil = 0;
+    }
+
     displayDayDiff(daysUntil, 'days until ' + targetDate.toDateString());
+    // TODO: Display as: Thursday, May 14, 2015
   }
 
   // URL Format: #/since/{date}
