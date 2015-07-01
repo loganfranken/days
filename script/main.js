@@ -14,8 +14,11 @@
       daysUntil = 0;
     }
 
-    displayDayDiff(daysUntil, 'days until ' + targetDate.toDateString());
-    // TODO: Display as: Thursday, May 14, 2015
+    displayDayDiff(daysUntil, 'days until ' + getDateDisplay(targetDate));
+
+    // TODO: Why does '2015-07-06' map to 'Sunday, July 5, 2015'
+
+    return;
   }
 
   // URL Format: #/since/{date}
@@ -24,6 +27,8 @@
     var targetDate = new Date(segments[2]);
     var daysSince = calcDayDiff(Date.now(), targetDate);
     displayDayDiff(daysSince, 'days since ' + targetDate.toDateString());
+
+    return;
   }
 
   // URL Format: #/between/{date1}/{date2}
@@ -33,6 +38,8 @@
     var secondDate = new Date(segments[3]);
     var daysBetween = calcDayDiff(secondDate, firstDate);
     displayDayDiff(daysBetween, 'days between ' + firstDate.toDateString() + ' and ' + secondDate.toDateString());
+
+    return;
   }
 
   // URL Format: #/{count}/after/{date1}
@@ -43,6 +50,8 @@
     var dateAfter = new Date();
     dateAfter.setDate(targetDate.getDate() + daysAfter);
     displayDayCalc(daysAfter + ' days after ' + targetDate.toDateString() + ' is', dateAfter.toDateString());
+
+    return;
   }
 
   // URL Format: #/{count}/before/{date1}
@@ -53,6 +62,20 @@
     var dateBefore = new Date();
     dateBefore.setDate(targetDate.getDate() - daysBefore);
     displayDayCalc(daysBefore + ' days before ' + targetDate.toDateString() + ' is', dateBefore.toDateString());
+
+    return;
+  }
+
+  function getDateDisplay(date) {
+
+    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    var day = dayNames[date.getDay()];
+    var month = monthNames[date.getMonth()];
+
+    return day + ", " + month + " " + date.getDate() + ", " + date.getFullYear();
+
   }
 
   function calcDayDiff(firstDate, secondDate) {
