@@ -16,7 +16,8 @@
 
     displayDayDiff(daysUntil, 'days until ' + getDateDisplay(targetDate));
 
-    // TODO: Why does '2015-07-06' map to 'Sunday, July 5, 2015'
+    // TODO: Don't display plural "days" for one day
+    // TODO: Listen for hash changes
 
     return;
   }
@@ -71,17 +72,19 @@
     var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    var day = dayNames[date.getDay()];
-    var month = monthNames[date.getMonth()];
+    var day = dayNames[date.getUTCDay()];
+    var month = monthNames[date.getUTCMonth()];
 
-    return day + ", " + month + " " + date.getDate() + ", " + date.getFullYear();
+    return day + ", " + month + " " + date.getUTCDate() + ", " + date.getUTCFullYear();
 
   }
 
   function calcDayDiff(firstDate, secondDate) {
 
+    var timeDivisor = (1000*60*60*24);
+
     var diff = firstDate - secondDate;
-    return Math.round(diff/(1000*60*60*24))
+    return Math.ceil(diff/timeDivisor);
 
   }
 
