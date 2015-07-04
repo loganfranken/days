@@ -14,9 +14,14 @@
       daysUntil = 0;
     }
 
-    displayDayDiff(daysUntil, 'days until ' + getDateDisplay(targetDate));
+    var timeUnit = 'days';
 
-    // TODO: Don't display plural "days" for one day
+    if(daysUntil === 1) {
+      timeUnit = 'day';
+    }
+
+    displayDayDiff(daysUntil, timeUnit + ' until ' + getDateDisplay(targetDate));
+
     // TODO: Listen for hash changes
 
     return;
