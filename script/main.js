@@ -1,6 +1,6 @@
 (function() {
 
-  // TODO: Handle invalid dates
+  // TODO: Combine 'until' and 'since' logic
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -16,6 +16,12 @@
     if(segments[1] === 'until')
     {
       var targetDate = new Date(segments[2]);
+
+      if(isNaN(targetDate.getTime())) {
+        displayError('Invalid date provided');
+        return;
+      }
+
       var daysUntil = calcDayDiff(targetDate, Date.now());
 
       if(daysUntil < 0) {
@@ -98,6 +104,12 @@
 
     var diff = firstDate - secondDate;
     return Math.ceil(diff/timeDivisor);
+
+  }
+
+  function displayError(errorMessage) {
+
+    document.getElementById('day-count-explanation').innerHTML = errorMessage;
 
   }
 
