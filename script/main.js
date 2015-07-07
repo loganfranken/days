@@ -1,6 +1,7 @@
 (function() {
 
-  // TODO: Combine 'until' and 'since' logic
+  // TODO: Since calculation for same day results in 1 day
+  // TODO: Cleanup "between"
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -15,26 +16,11 @@
     // URL Format: #/until/{date}
     if(segments[1] === 'until')
     {
-      var targetDate = new Date(segments[2]);
-
-      if(isNaN(targetDate.getTime())) {
-        displayError('Invalid date provided');
-        return;
-      }
-
-      var daysUntil = calcDayDiff(targetDate, Date.now());
-
-      if(daysUntil < 0) {
-        daysUntil = 0;
-      }
-
-      var timeUnit = 'days';
-
-      if(daysUntil === 1) {
-        timeUnit = 'day';
-      }
-
-      displayDayDiff(daysUntil, timeUnit + ' until ' + getDateDisplay(targetDate));
+      handleToDate(
+        function(targetDate) { return calcDayDiff(targetDate, Date.now()); },
+        segments[2],
+        segments[1]
+      );
 
       return;
     }
@@ -42,9 +28,11 @@
     // URL Format: #/since/{date}
     if(segments[1] === 'since')
     {
-      var targetDate = new Date(segments[2]);
-      var daysSince = calcDayDiff(Date.now(), targetDate);
-      displayDayDiff(daysSince, 'days since ' + targetDate.toDateString());
+      handleToDate(
+        function(targetDate) { return calcDayDiff(Date.now(), targetDate); },
+        segments[2],
+        segments[1]
+      );
 
       return;
     }
@@ -83,6 +71,33 @@
 
       return;
     }
+
+  }
+
+  function handleToDate(dayCalc, rawTargetDate, modifier) {
+
+    var targetDate = new Date(rawTargetDate);
+
+    if(isNaN(targetDate.getTime())) {
+      displayError('Invalid date provided');
+      return;
+    }
+
+    var daysCalc = dayCalc(targetDate);
+
+    if(daysCalc < 0) {
+      daysCalc = 0;
+    }
+
+    var timeUnit = 'days';
+
+    if(daysCalc === 1) {
+      timeUnit = 'day';
+    }
+
+    displayDayDiff(daysCalc, timeUnit + ' ' + modifier + ' ' + getDateDisplay(targetDate));
+
+    return;
 
   }
 
