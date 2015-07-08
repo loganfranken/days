@@ -1,6 +1,5 @@
 (function() {
 
-  // TODO: Since calculation for same day results in 1 day
   // TODO: Cleanup "between"
 
   window.onhashchange = displayDateCalculation;
@@ -17,7 +16,7 @@
     if(segments[1] === 'until')
     {
       handleToDate(
-        function(targetDate) { return calcDayDiff(targetDate, Date.now()); },
+        function(targetDate) { return calcDayDiff(targetDate, Date.now()) + 1; },
         segments[2],
         segments[1]
       );
@@ -118,7 +117,7 @@
     var timeDivisor = (1000*60*60*24);
 
     var diff = firstDate - secondDate;
-    return Math.ceil(diff/timeDivisor);
+    return Math.floor(diff/timeDivisor);
 
   }
 
