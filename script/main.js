@@ -1,6 +1,6 @@
 (function() {
 
-  // TODO: Cleanup "between"
+  // TODO: Handle swapping order of between dates
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -41,8 +41,25 @@
     {
       var firstDate = new Date(segments[2]);
       var secondDate = new Date(segments[3]);
+
+      if(isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
+        displayError('Invalid date provided');
+        return;
+      }
+
       var daysBetween = calcDayDiff(secondDate, firstDate);
-      displayDayDiff(daysBetween, 'days between ' + firstDate.toDateString() + ' and ' + secondDate.toDateString());
+
+      if(daysBetween < 0) {
+        daysBetween = 0;
+      }
+
+      var timeUnit = 'days';
+
+      if(daysBetween === 1) {
+        timeUnit = 'day';
+      }
+
+      displayDayDiff(daysBetween, timeUnit + ' between ' + getDateDisplay(firstDate) + ' and ' + getDateDisplay(secondDate));
 
       return;
     }
