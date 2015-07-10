@@ -1,6 +1,6 @@
 (function() {
 
-  // TODO: Handle swapping order of between dates
+  // TODO: Clean up 'after'
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -41,6 +41,12 @@
     {
       var firstDate = new Date(segments[2]);
       var secondDate = new Date(segments[3]);
+
+      if(firstDate > secondDate) {
+        var swapDate = firstDate;
+        firstDate = secondDate;
+        secondDate = swapDate;
+      }
 
       if(isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
         displayError('Invalid date provided');
