@@ -42,15 +42,15 @@
       var firstDate = new Date(segments[2]);
       var secondDate = new Date(segments[3]);
 
+      if(isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
+        displayError('Invalid date provided');
+        return;
+      }
+
       if(firstDate > secondDate) {
         var swapDate = firstDate;
         firstDate = secondDate;
         secondDate = swapDate;
-      }
-
-      if(isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
-        displayError('Invalid date provided');
-        return;
       }
 
       var daysBetween = calcDayDiff(secondDate, firstDate);
@@ -74,9 +74,27 @@
     if(segments[2] === 'after')
     {
       var targetDate = new Date(segments[3]);
+
+      if(isNaN(targetDate.getTime())) {
+        displayError('Invalid date provided');
+        return;
+      }
+
       var daysAfter = +segments[1];
+
+      if(isNaN(daysAfter)) {
+        displayError('Invalid number of days provided');
+        return;
+      }
+
       var dateAfter = new Date();
       dateAfter.setDate(targetDate.getDate() + daysAfter);
+
+      if(isNaN(dateAfter.getTime())) {
+        displayError('Unable to calculate new date');
+        return;
+      }
+
       displayDayCalc(daysAfter + ' days after ' + targetDate.toDateString() + ' is', dateAfter.toDateString());
 
       return;
