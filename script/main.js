@@ -42,7 +42,7 @@
       var firstDate = new Date(segments[2]);
       var secondDate = new Date(segments[3]);
 
-      if(isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
+      if(!isValidDate(firstDate) || !isValidDate(secondDate)) {
         displayError('Invalid date provided');
         return;
       }
@@ -90,7 +90,7 @@
       var dateAfter = new Date();
       dateAfter.setDate(targetDate.getDate() + daysAfter);
 
-      if(isNaN(dateAfter.getTime())) {
+      if(!isValidDate(dateAfter)) {
         displayError('Unable to calculate new date');
         return;
       }
@@ -118,7 +118,7 @@
 
     var targetDate = new Date(rawTargetDate);
 
-    if(isNaN(targetDate.getTime())) {
+    if(!isValidDate(targetDate)) {
       displayError('Invalid date provided');
       return;
     }
@@ -139,6 +139,10 @@
 
     return;
 
+  }
+
+  function isValidDate(input) {
+    return !isNaN(input.getTime());
   }
 
   function getDateDisplay(date) {
