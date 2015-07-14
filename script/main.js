@@ -1,6 +1,6 @@
 (function() {
 
-  // TODO: Clean up 'after'
+  // TODO: Combine 'after'/'before'
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -75,7 +75,7 @@
     {
       var targetDate = new Date(segments[3]);
 
-      if(isNaN(targetDate.getTime())) {
+      if(!isValidDate(targetDate)) {
         displayError('Invalid date provided');
         return;
       }
@@ -104,9 +104,27 @@
     if(segments[2] === 'before')
     {
       var targetDate = new Date(segments[3]);
+
+      if(!isValidDate(targetDate)) {
+        displayError('Invalid date provided');
+        return;
+      }
+
       var daysBefore = +segments[1];
+
+      if(isNaN(daysBefore)) {
+        displayError('Invalid number of days provided');
+        return;
+      }
+
       var dateBefore = new Date();
       dateBefore.setDate(targetDate.getDate() - daysBefore);
+
+      if(!isValidDate(dateBefore)) {
+        displayError('Unable to calculate new date');
+        return;
+      }
+
       displayDayCalc(daysBefore + ' days before ' + targetDate.toDateString() + ' is', dateBefore.toDateString());
 
       return;
