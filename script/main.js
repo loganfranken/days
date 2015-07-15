@@ -15,7 +15,7 @@
     // URL Format: #/until/{date}
     if(segments[1] === 'until')
     {
-      handleToDate(
+      handleDateDiff(
         function(targetDate) { return calcDayDiff(targetDate, Date.now()) + 1; },
         segments[2],
         segments[1]
@@ -27,7 +27,7 @@
     // URL Format: #/since/{date}
     if(segments[1] === 'since')
     {
-      handleToDate(
+      handleDateDiff(
         function(targetDate) { return calcDayDiff(Date.now(), targetDate); },
         segments[2],
         segments[1]
@@ -132,7 +132,7 @@
 
   }
 
-  function handleToDate(dayCalc, rawTargetDate, modifier) {
+  function handleDateDiff(dayCalc, rawTargetDate, modifier) {
 
     var targetDate = new Date(rawTargetDate);
 
@@ -154,6 +154,41 @@
     }
 
     displayDayDiff(daysCalc, timeUnit + ' ' + modifier + ' ' + getDateDisplay(targetDate));
+
+    return;
+
+  }
+
+  function handleDateDayCalc(dayCalc, rawTargetDate, rawDaysModifier) {
+
+    var targetDate = new Date(rawTargetDate);
+
+    if(!isValidDate(targetDate)) {
+      displayError('Invalid date provided');
+      return;
+    }
+
+    var daysModifier = +(rawDaysModifier);
+
+    if(isNaN(daysModifier)) {
+      displayError('Invalid number of days provided');
+      return;
+    }
+
+    var calcDate = dayCalc(targetDate, daysModifier);
+
+    if(!isValidDate(calcDate)) {
+      displayError('Unable to calculate new date');
+      return;
+    }
+
+    var timeUnit = 'days';
+
+    if(daysModifier === 1) {
+      timeUnit = 'day';
+    }
+
+    displayDayCalc(daysModifier + ' ' + timeUnit + ' ' + modifier + ' ' + getDateDisplay(targetDate) + ' is', getDateDisplay(calcDate));
 
     return;
 
