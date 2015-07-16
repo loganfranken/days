@@ -1,6 +1,6 @@
 (function() {
 
-  // TODO: Combine 'after'/'before'
+  // TODO: after/before logic is adding months, not days
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -73,29 +73,18 @@
     // URL Format: #/{count}/after/{date1}
     if(segments[2] === 'after')
     {
-      var targetDate = new Date(segments[3]);
+      handleDateDayCalc(
+        function(targetDate, daysAfter) {
 
-      if(!isValidDate(targetDate)) {
-        displayError('Invalid date provided');
-        return;
-      }
+          var dateAfter = new Date();
+          dateAfter.setDate(targetDate.getDate() + daysAfter);
+          return dateAfter;
 
-      var daysAfter = +segments[1];
-
-      if(isNaN(daysAfter)) {
-        displayError('Invalid number of days provided');
-        return;
-      }
-
-      var dateAfter = new Date();
-      dateAfter.setDate(targetDate.getDate() + daysAfter);
-
-      if(!isValidDate(dateAfter)) {
-        displayError('Unable to calculate new date');
-        return;
-      }
-
-      displayDayCalc(daysAfter + ' days after ' + targetDate.toDateString() + ' is', dateAfter.toDateString());
+        },
+        segments[3],
+        segments[1],
+        'after'
+      );
 
       return;
     }
@@ -103,33 +92,21 @@
     // URL Format: #/{count}/before/{date1}
     if(segments[2] === 'before')
     {
-      var targetDate = new Date(segments[3]);
+      handleDateDayCalc(
+        function(targetDate, daysBefore) {
 
-      if(!isValidDate(targetDate)) {
-        displayError('Invalid date provided');
-        return;
-      }
+          var dateAfter = new Date();
+          dateAfter.setDate(targetDate.getDate() - daysBefore);
+          return dateAfter;
 
-      var daysBefore = +segments[1];
-
-      if(isNaN(daysBefore)) {
-        displayError('Invalid number of days provided');
-        return;
-      }
-
-      var dateBefore = new Date();
-      dateBefore.setDate(targetDate.getDate() - daysBefore);
-
-      if(!isValidDate(dateBefore)) {
-        displayError('Unable to calculate new date');
-        return;
-      }
-
-      displayDayCalc(daysBefore + ' days before ' + targetDate.toDateString() + ' is', dateBefore.toDateString());
+        },
+        segments[3],
+        segments[1],
+        'before'
+      );
 
       return;
     }
-
   }
 
   function handleDateDiff(dayCalc, rawTargetDate, modifier) {
@@ -159,7 +136,7 @@
 
   }
 
-  function handleDateDayCalc(dayCalc, rawTargetDate, rawDaysModifier) {
+  function handleDateDayCalc(dayCalc, rawTargetDate, rawDaysModifier, modifier) {
 
     var targetDate = new Date(rawTargetDate);
 
