@@ -1,6 +1,7 @@
 (function() {
 
-  // TODO: after/before logic is adding months, not days
+  // TODO: Styling after/before
+  // TODO: Reset the display on hash change
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
@@ -76,7 +77,7 @@
       handleDateDayCalc(
         function(targetDate, daysAfter) {
 
-          var dateAfter = new Date();
+          var dateAfter = new Date(targetDate.getTime());
           dateAfter.setDate(targetDate.getDate() + daysAfter);
           return dateAfter;
 
@@ -95,7 +96,7 @@
       handleDateDayCalc(
         function(targetDate, daysBefore) {
 
-          var dateAfter = new Date();
+          var dateAfter = new Date(targetDate.getTime());
           dateAfter.setDate(targetDate.getDate() - daysBefore);
           return dateAfter;
 
