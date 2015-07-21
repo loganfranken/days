@@ -1,13 +1,13 @@
 (function() {
 
   // TODO: Styling after/before
-  // TODO: Reset the display on hash change
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
 
   function displayDateCalculation()
   {
+    resetDisplay();
 
     var urlHash = window.location.hash.substring(1);
 
@@ -194,6 +194,16 @@
 
     var diff = firstDate - secondDate;
     return Math.floor(diff/timeDivisor);
+
+  }
+
+  function resetDisplay() {
+
+    document.getElementById('day-count-explanation').innerHTML = '';
+    document.getElementById('day-count').innerHTML = '';
+    document.getElementById('day-count-explanation').innerHTML = '';
+    document.getElementById('day-calc-result').innerHTML = '';
+    document.getElementById('day-calc-explanation').innerHTML = '';
 
   }
 
