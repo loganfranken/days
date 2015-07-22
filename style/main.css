@@ -17,6 +17,12 @@ html, body
   line-height: 0.9em;
 }
 
+.date-display-feature-small
+{
+  font-size: 5em;
+  font-weight: bold;
+}
+
 .date-display-details
 {
   font-size: 2.5em;

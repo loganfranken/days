@@ -1,6 +1,7 @@
 (function() {
 
-  // TODO: Styling after/before
+  // TODO: Daylight savings time
+  // TODO: Add README
 
   window.onhashchange = displayDateCalculation;
   displayDateCalculation();
