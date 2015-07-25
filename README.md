@@ -27,7 +27,13 @@ View [days since Halloween 2003](http://loganfranken.github.io/days/#/since/10-3
 
 #### Days Between
 
-...
+Calculates the days *between* two dates.
+
+```
+http://loganfranken.github.io/days/#/between/{Date1}/{Date2}
+```
+
+View [days between May 3, 2015 and May 21, 2015](http://loganfranken.github.io/days/#/between/2015-5-3/2015-5-21).
 
 #### Days Before
 
