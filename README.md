@@ -37,7 +37,13 @@ View [days between May 3, 2015 and May 21, 2015](http://loganfranken.github.io/d
 
 #### Days Before
 
-...
+Calculates the date resulting from subtracting days *from* a date.
+
+```
+http://loganfranken.github.io/days/#/{Days}/before/{Date}
+```
+
+Views [3 days before June 6, 2015](http://loganfranken.github.io/days/#/3/before/2015-06-7).
 
 #### Days After
 
