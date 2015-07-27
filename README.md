@@ -47,4 +47,10 @@ Views [3 days before June 7, 2015](http://loganfranken.github.io/days/#/3/before
 
 #### Days After
 
-...
+Calculates the date resulting from adding days *after* a date.
+
+```
+http://loganfranken.github.io/days/#/{Days}/after/{Date}
+```
+
+Views [10 days after August 3, 2015](http://loganfranken.github.io/days/#/10/after/2015-08-3).
