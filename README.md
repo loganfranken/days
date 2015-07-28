@@ -1,7 +1,7 @@
 # Days
 
-**Days** is a simple, client-side application for various date-related
-calculations.
+**Days** is a simple, URL-based, client-side application for various
+date-related calculations.
 
 ### Options
 
